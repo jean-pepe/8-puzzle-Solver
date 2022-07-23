@@ -78,3 +78,8 @@ Number of moves = 4
  1  2  3 
  4  5  6 
  7  8  0
+
+    
+    #TO-DO 
+    -general refactoring of old my old code to an more readable source code
+    -make a new version in c++ to learn that language
