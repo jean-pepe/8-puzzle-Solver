@@ -33,7 +33,8 @@ The efficacy of this approach hinges on the choice of priority function for a se
 The Manhattan priority function is the Manhattan distance of a board plus the number of moves made so far to get to the search node.
 To solve the puzzle from a given search node on the priority queue, the total number of moves we need to make (including those already made) is at least its priority, using Manhattan priority function. Why? Consequently, when the goal board is dequeued, we have discovered not only a sequence of moves from the initial board to the goal board, but one that makes the fewest moves.
 
-### Game tree. One way to view the computation is as a game tree, where each search node is a node in the game tree and the children of a node correspond to its neighboring search nodes. The root of the game tree is the initial search node; the internal nodes have already been processed; the leaf nodes are maintained in a priority queue; at each step, the A* algorithm removes the node with the smallest priority from the priority queue and processes it (by adding its children to both the game tree and the priority queue).
+### Game tree. 
+One way to view the computation is as a game tree, where each search node is a node in the game tree and the children of a node correspond to its neighboring search nodes. The root of the game tree is the initial search node; the internal nodes have already been processed; the leaf nodes are maintained in a priority queue; at each step, the A* algorithm removes the node with the smallest priority from the priority queue and processes it (by adding its children to both the game tree and the priority queue).
 
 For example, the following diagram illustrates the game tree after each of the first three steps of running the A* search algorithm on a 3-by-3 puzzle using the Manhattan priority function.
 ![](https://www.cs.princeton.edu/courses/archive/spr18/cos226/assignments/8puzzle/game-tree.png)
@@ -50,29 +51,30 @@ public class Solver {
 ### Test client.
 Your test client should take the name of an input file as a command-line argument and print the minimum number of moves to solve the puzzle and a corresponding solution. The input file contains the board size n, followed by the n-by-n grid of tiles, using 0 to designate the blank square.
 
-% java-algs4 Solver puzzle04.txt
+java Solver puzzle04.txt
 Number of moves = 4
-3
+    
+    
  0  1  3 
  4  2  5 
  7  8  6 
 
-3
+
  1  0  3 
  4  2  5 
  7  8  6 
 
-3
+    
  1  2  3 
  4  0  5 
  7  8  6 
 
-3
+    
  1  2  3 
- 4  5  0   
+ 4  5  0 
  7  8  6 
 
-3
+    
  1  2  3 
  4  5  6 
  7  8  0
