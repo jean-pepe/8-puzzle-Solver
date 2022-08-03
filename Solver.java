@@ -22,9 +22,8 @@ public class Solver{
             this.previousN = previousN;
         }
 
-        public int compareTo(SearchNode that) {
+        public int compareTo(SearchNode that)
             return (this.priority - that.priority);
-        }
     }
     
     public Solver(Board init){        

@@ -112,29 +112,25 @@ public class Board
     {
         Stack<Board> stackNeighbors = new Stack<Board>();
         char[] neighbor;
-        if(row(voidPosition+1) != 1) 
-        {
+        if(row(voidPosition+1) != 1) {
             neighbor = cube.clone();
             swapUp(neighbor,voidPosition);
             Board neighborBoard = new Board(matrix(neighbor));
             stackNeighbors.push(neighborBoard);
         }
-        if(row(voidPosition+1) != boardDimension) 
-        {
+        if(row(voidPosition+1) != boardDimension) {
             neighbor = cube.clone();
             swapDown(neighbor,voidPosition);
             Board neighborBoard = new Board(matrix(neighbor));
             stackNeighbors.push(neighborBoard);
         }
-        if(column(voidPosition+1) != 1) 
-        {
+        if(column(voidPosition+1) != 1) {
             neighbor = cube.clone();
             swapLeft(neighbor,voidPosition);
             Board neighborBoard = new Board(matrix(neighbor));
             stackNeighbors.push(neighborBoard);
         }
-        if(column(voidPosition+1) != boardDimension) 
-        {
+        if(column(voidPosition+1) != boardDimension) {
             neighbor = cube.clone();
             swapRight(neighbor,voidPosition);
             Board neighborBoard = new Board(matrix(neighbor));
