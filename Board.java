@@ -108,8 +108,7 @@ public class Board
         return true;
     }
  
-    public Iterable<Board> neighbors() 
-    {
+    public Iterable<Board> neighbors(){
         Stack<Board> stackNeighbors = new Stack<Board>();
         char[] neighbor;
         if(row(voidPosition+1) != 1) {
@@ -139,15 +138,10 @@ public class Board
         return stackNeighbors;
     }
 
-
     public String toString(){
         StringBuilder s = new StringBuilder();
-        int m = 0;
-        for (int i = 0; i < (boardDimension*boardDimension); i++){
-    
-                s.append(String.format("%2d ", (int)cube[m]));
-                m++;
-        }
+        for (int i = 0; i < (boardDimension*boardDimension); i++)
+                s.append(String.format("%2d ", (int)cube[i]));
         return s.toString();
     }
    
