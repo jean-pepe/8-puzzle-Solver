@@ -5,14 +5,13 @@ public class Solver{
     private PriorityQueue<SearchNode>  priorityq;
     private PriorityQueue<SearchNode> pqtwin;
     private int n;
-    private Board init;
+    private Board initial;
     private Board goal;
     private SearchNode fine;
 
     private class SearchNode implements Comparable<SearchNode>{
         private Board board;
-        private int m;
-        private int priority;
+        private int m,priority;
         private SearchNode previousN;
 
         public SearchNode(Board board, int m, SearchNode previousN){
@@ -26,28 +25,23 @@ public class Solver{
             return (this.priority - that.priority);
     }
     
-    public Solver(Board init){        
-        if(init == null) throw new  NullPointerException();
-
-        this.init = init;
-        n = init.dimension();
+    public Solver(Board initial){        
+        this.initial = initial;
+        n = initial.dimension();
         priorityq = new PriorityQueue<SearchNode>();
         pqtwin = new PriorityQueue<SearchNode>();
 
         int[][] cubes = new int[n][n];
-        int k = 1 ;
         for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++) {
-            cubes[i][j] = k;
-            k++;
-        }
+            for (int j = 0; j < n; j++)
+            cubes[i][j] = i+j+1;
         cubes[n-1][n-1] = 0;
         goal = new Board(cubes);
 
         SearchNode minN;
         SearchNode minNTwin;
-        priorityq.add(new SearchNode(init, 0, null));
-        pqtwin.add(new SearchNode(init.twin(), 0, null));
+        priorityq.add(new SearchNode(initial, 0, null));
+        pqtwin.add(new SearchNode(initial.twin(), 0, null));
         while(!priorityq.peek().board.equals(goal) && !pqtwin.peek().board.equals(goal)) {
             minN = priorityq.peek();
             minNTwin = pqtwin.peek();
@@ -69,19 +63,7 @@ public class Solver{
         }
     }
    
-    public boolean isSoluble(){
-        if (priorityq.peek().board.equals(goal))
-            return true;
-        if (pqtwin.peek().board.equals(goal))
-            return false;
-        return false;
-    }
-
-    public int moves() {
-        if(!isSoluble()) 
-            return -1;
-        return priorityq.peek().m;
-    }
+    public int moves() {return priorityq.peek().m;}
 
     public Iterable<Board> listSolution() {
         LinkedList<Board> stackSolution = new LinkedList<Board>();      
@@ -90,7 +72,7 @@ public class Solver{
             stackSolution.addFirst(curr.board);
             curr = curr.previousN;
         }
-        stackSolution.addFirst(init);
+        stackSolution.addFirst(initial);
         return stackSolution;
     }
 
@@ -105,8 +87,8 @@ public class Solver{
                 for (int j = 0; j < n; j++){
                     cubes[i][j] = scan.nextInt();
                 }
-            Board init= new Board(cubes);
-            Solver solving = new Solver(init);
+            Board initial= new Board(cubes);
+            Solver solving = new Solver(initial);
             System.out.println("Number of moves = " + solving.moves());
             for (Board board : solving.listSolution())
                 System.out.println(board.toString());

@@ -6,9 +6,7 @@ public class Board
     private final char[] cube;
     private int voidPosition;
    
-    private int row(int p) {
-        return (int) Math.ceil((double)p/(double)boardDimension);
-    }
+    private int row(int p) { return (int) Math.ceil((double)p/(double)boardDimension); }
    
     private int column(int p) {
         if (p % boardDimension == 0) 
@@ -43,14 +41,12 @@ public class Board
     }
 
     public boolean isGoal() {
-        for (int k = 0 ; k < boardDimension * boardDimension - 2; k++) {
+        for (int k = 0 ; k < boardDimension * boardDimension - 2; k++)
             if (cube[k] > cube[k + 1]) return false;
-        }
         return true;
     }
     
-    public Board twin() 
-    {
+    public Board twin() {
         boolean swapsucc = false;
         char[] clone = cube.clone();
         int k = 0;
@@ -98,16 +94,6 @@ public class Board
         return cloneBoard;
     }
 
-    public boolean equals(Object t) 
-    {
-        if (t == this) return true;
-        if (t == null) return false;
-        if (t.getClass() != this.getClass()) return false;
-        Board that = (Board) t;
-        if (!Arrays.equals(this.cube, that.cube)) return false;
-        return true;
-    }
- 
     public Iterable<Board> neighbors(){
         Stack<Board> stackNeighbors = new Stack<Board>();
         char[] neighbor;
