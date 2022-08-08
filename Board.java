@@ -45,6 +45,15 @@ public class Board
             if (cube[k] > cube[k + 1]) return false;
         return true;
     }
+    public boolean equals(Object t) 
+    {
+        if (t == this) return true;
+        if (t == null) return false;
+        if (t.getClass() != this.getClass()) return false;
+        Board that = (Board) t;
+        if (!Arrays.equals(this.cube, that.cube)) return false;
+        return true;
+    }
     
     public Board twin() {
         boolean swapsucc = false;

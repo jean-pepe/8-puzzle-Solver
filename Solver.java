@@ -21,20 +21,22 @@ public class Solver{
             this.previousN = previousN;
         }
 
-        public int compareTo(SearchNode that)
-            return (this.priority - that.priority);
+        public int compareTo(SearchNode that)   {   return (this.priority - that.priority); }
     }
     
-    public Solver(Board initial){        
+    public Solver(Board initial){
         this.initial = initial;
         n = initial.dimension();
-        priorityq = new PriorityQueue<SearchNode>();
+        priorityq= new PriorityQueue<SearchNode>();
         pqtwin = new PriorityQueue<SearchNode>();
 
         int[][] cubes = new int[n][n];
+        int k = 1 ;
         for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-            cubes[i][j] = i+j+1;
+            for (int j = 0; j < n; j++) {
+            cubes[i][j] = k;
+            k++;
+        }
         cubes[n-1][n-1] = 0;
         goal = new Board(cubes);
 
@@ -47,23 +49,33 @@ public class Solver{
             minNTwin = pqtwin.peek();
             priorityq.poll();  
             pqtwin.poll();
-            for (Board neighbor: minN.board.neighbors()){
-                if (minN.m == 0) 
+            for (Board neighbor: minN.board.neighbors())
+               {
+                if (minN.m == 0) {
                     priorityq.add(new SearchNode(neighbor, minN.m+1, minN));
+                }
                 else if (!neighbor.equals(minN.previousN.board)) 
+                {
                     priorityq.add(new SearchNode(neighbor, minN.m+1, minN));
+                }
             }
             
-            for (Board neighbor: minNTwin.board.neighbors()) {
+            for (Board neighbor: minNTwin.board.neighbors()) 
+            {
                 if (minNTwin.m == 0) 
+                {
                     pqtwin.add(new SearchNode(neighbor, minNTwin.m+1, minNTwin));
+                }
                 else if (!neighbor.equals(minNTwin.previousN.board)) 
+                {
                     pqtwin.add(new SearchNode(neighbor, minNTwin.m+1, minNTwin));
+                }
             }
         }
     }
-   
-    public int moves() {return priorityq.peek().m;}
+
+    
+    public int moves() { return priorityq.peek().m;}
 
     public Iterable<Board> listSolution() {
         LinkedList<Board> stackSolution = new LinkedList<Board>();      
@@ -75,18 +87,17 @@ public class Solver{
         stackSolution.addFirst(initial);
         return stackSolution;
     }
-
+       
     public static void main(String[] args) {
         String nomefile = args[0];
-        try {      
+        try {        
             FileReader file = new FileReader(nomefile);
             Scanner scan = new Scanner(file);           
             int n = scan.nextInt();
             int[][] cubes = new int[n][n];
-            for (int i = 0; i < n; i++)    
-                for (int j = 0; j < n; j++){
+            for (int i = 0; i < n; i++)  
+                for (int j = 0; j < n; j++)
                     cubes[i][j] = scan.nextInt();
-                }
             Board initial= new Board(cubes);
             Solver solving = new Solver(initial);
             System.out.println("Number of moves = " + solving.moves());
@@ -94,6 +105,7 @@ public class Solver{
                 System.out.println(board.toString());
              file.close();         
         } 
-        catch (Exception e) {}
+        catch (Exception e) {       }
         }
+
     }
